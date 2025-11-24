@@ -1,0 +1,34 @@
+{
+  "default_template_candidates": [
+    "templates/ssc_assessment_template_generic.xlsx",
+    "ssc_assessment_template.xlsx"
+  ],
+  "assessments": {
+    "bain_p2p": {
+      "template_path": "templates/bain_p2p_coe_assessment_v1.xlsx",
+      "client_key": "bain"
+    },
+    "jmcl_trq": {
+      "template_path": "templates/jmcl_trq_readiness_v1.xlsx",
+      "client_key": "jmcl"
+    },
+    "ringc_price": {
+      "template_path": "templates/ringc_pricing_margin_v1.xlsx",
+      "client_key": "ringc"
+    }
+  },
+  "clients": {
+    "bain": {
+      "display_name": "Bain Global Resources",
+      "logo_path": "logos/bain_logo.png"
+    },
+    "jmcl": {
+      "display_name": "J.McLaughlin",
+      "logo_path": "logos/jmcl_logo.png"
+    },
+    "ringc": {
+      "display_name": "Ring Concierge",
+      "logo_path": "logos/ring_concierge_logo.png"
+    }
+  }
+}
