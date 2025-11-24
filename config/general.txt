@@ -1,0 +1,6 @@
+This is configuration area to add new clients information. 
+  This should contain as follows:
+"assessments": {
+    "<Client_Assessment_shortname": {
+      "template_path": "templates/<assessment_questions_file>.xlsx",
+      "client_key": "client_short_name"
