@@ -705,6 +705,24 @@ def build_ai_scoring_csv(assessment_name, ai_result: dict) -> str:
         return ""
 
     rows = []
+/*    for dim, items in ai_result.items():
+        if not isinstance(items, list):
+            continue
+        for item in items:
+            rows.append({
+                "assessment_name": assessment_name,
+                "dimension": dim,
+                "index": item.get("index"),
+                "question": item.get("question"),
+                "answer": item.get("answer"),
+                "ai_score": item.get("ai_score"),
+                "reason": item.get("reason"),
+                "weight": item.get("weight"),
+                "help_text": item.get("help_text"),
+                "role": item.get("role"),
+            })
+*/
+
     for dim, items in ai_result.items():
         if not isinstance(items, list):
             continue
@@ -716,6 +734,9 @@ def build_ai_scoring_csv(assessment_name, ai_result: dict) -> str:
                 "question": item.get("question"),
                 "answer": item.get("answer"),
                 "ai_score": item.get("ai_score"),
+                # --- NEW: final_score column right after ai_score ---
+                "final_score": item.get("final_score"),
+                # ----------------------------------------------------
                 "reason": item.get("reason"),
                 "weight": item.get("weight"),
                 "help_text": item.get("help_text"),
