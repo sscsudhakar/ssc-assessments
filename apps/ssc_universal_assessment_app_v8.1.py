@@ -440,7 +440,7 @@ Do not include any other text outside the JSON array.
         if raw.startswith("ERROR:"):
             return {"error": f"{dim} scoring failed: {raw}"}
 
-        try:
+/*        try:
             cleaned = raw.strip().strip("`")
             if cleaned.lower().startswith("json"):
                 cleaned = cleaned[4:].strip()
@@ -455,7 +455,42 @@ Do not include any other text outside the JSON array.
                 item["help_text"] = base_item.get("help_text", "")
                 item["role"] = base_item.get("role", respondent_role or "")
                 enriched.append(item)
+            overall_result[dim] = enriched 
+*/
+        try:
+            cleaned = raw.strip().strip("`")
+            if cleaned.lower().startswith("json"):
+                cleaned = cleaned[4:].strip()
+            parsed = json.loads(cleaned)
+
+            # Merge back weight/help_text/role from original items by index
+            enriched = []
+            for item in parsed:
+                idx = item.get("index")
+                base_item = next((x for x in items if x.get("index") == idx), {})
+
+                weight = base_item.get("weight", 1)
+                ai_score = item.get("ai_score", None)
+
+                item["weight"] = weight
+                item["help_text"] = base_item.get("help_text", "")
+                item["role"] = base_item.get("role", respondent_role or "")
+
+                # --- NEW: compute final_score = ai_score * weight ---
+                try:
+                    if ai_score is not None:
+                        item["final_score"] = float(ai_score) * float(weight)
+                    else:
+                        item["final_score"] = None
+                except Exception:
+                    # if anything weird, just keep it blank
+                    item["final_score"] = None
+                # ----------------------------------------------------
+
+                enriched.append(item)
+
             overall_result[dim] = enriched
+
         except Exception as e:
             return {
                 "error": f"{dim} scoring failed: could not parse AI JSON: {e}\nRaw response was:\n{raw}"
