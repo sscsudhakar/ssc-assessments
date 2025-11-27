@@ -6,3 +6,4 @@ requests
 xlsxwriter
 numpy
 sendgrid==6.11.0
+python-docx
